@@ -1,0 +1,752 @@
+swagger: "2.0"
+info:
+  title: Java WSB Course Sample Movie App API
+  description: Sample Movie App API
+  version: 0.0.1
+host: api.wsb.pl
+schemes:
+  - http    #<!-- to nie jest zalecane ale na zajeciach zostaje -->
+  - https
+consumes:
+  - application/json      # <!-- tu zwracany jest json -->
+produces:
+  - application/json
+
+definitions:
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Error message
+    required:
+      - message
+    example:
+      message: 'Sample error message.'
+
+  RegisterUserRequest:
+    type: object
+    properties:
+      email:
+        type: string
+        description: User email address
+      password:
+        type: string
+        description: User password
+    required:
+      - email
+      - password
+    example:
+      email: 'uzytkownik@java-course-wsb.pl'
+      password: 'password'
+
+  # <!-- ###################MovieEditRequest############################# -->
+  UpdateUserRequest:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: User id
+      email:
+        type: string
+        description: User email address
+      password:
+        type: string
+        description: User password
+    required:
+      - id
+      - email
+      - password
+    example:
+      id: 1
+      email: 'uzytkownik@java-course-wsb.pl'
+      password: 'password'
+  # <!-- ###################MovieEditRequest############################# -->
+
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: User id
+      email:
+        type: string
+        description: User email address
+    required:
+      - id
+      - email
+    example:
+      id: 1
+      email: 'uzytkownik@java-course-wsb.pl'
+
+  AuthenticationRequest:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+      - email
+      - password
+    example:
+      email: 'uzytkownik@java-course-wsb.pl'
+      password: 'password'
+
+  Actor:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Actor id
+      first_name:
+        type: string
+        description: Actor first name
+      last_name:
+        type: string
+        description: Actor last name
+    required:
+      - id
+      - first_name
+      - last_name
+    example:
+      id: 1
+      first_name: 'Jan'
+      last_name: 'Nowak'
+
+  Movie:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Movie id
+      genre:
+        type: string
+        enum:
+          - Action
+          - Comedy
+          - Drama
+          - Science fiction
+          - Thriller
+        description: Movie genre
+      title:
+        type: string
+        description: Movie title
+      rating:
+        type: integer
+        description: Movie rating
+      year:
+        type: string
+        format: 'yyyy'
+        description: Movie release year
+      director:
+        type: string
+        description: Movie director
+      actors:
+        type: array
+        items:
+          $ref: '#/definitions/Actor'
+      comment:
+        type: string
+        description: Movie coomment
+    required:
+      - id
+      - title
+    example:
+      id: 1
+      genre: 'Science fiction'
+      title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+      year: '1977'
+      director: 'George Lucas'
+      actors:
+        - id: 1
+          first_name: 'Mark'
+          last_name: 'Hamill'
+        - id: 2
+          first_name: 'Harrison'
+          last_name: 'Ford'
+        - id: 3
+          first_name: 'Carrie'
+          last_name: 'Fisher'
+
+  MovieList:
+    type: object
+    properties:
+      total:
+        type: integer
+        description: Movie list total items count
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Movie'
+        description: One pagination page data
+    required:
+      - total
+      - data
+    example:
+      total_count: 99
+      data:
+        - id: 1
+          genre: 'Science fiction'
+          title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+          year: '1977'
+          director: 'George Lucas'
+          actors:
+            - id: 1
+              first_name: 'Mark'
+              last_name: 'Hamill'
+            - id: 2
+              first_name: 'Harrison'
+              last_name: 'Ford'
+            - id: 3
+              first_name: 'Carrie'
+              last_name: 'Fisher'
+        - id: 1
+          genre: 'Science fiction'
+          title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+          year: '1977'
+          director: 'George Lucas'
+          actors:
+            - id: 1
+              first_name: 'Mark'
+              last_name: 'Hamill'
+            - id: 2
+              first_name: 'Harrison'
+              last_name: 'Ford'
+            - id: 3
+              first_name: 'Carrie'
+              last_name: 'Fisher'
+        - id: 1
+          genre: 'Science fiction'
+          title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+          year: '1977'
+          director: 'George Lucas'
+          actors:
+            - id: 1
+              first_name: 'Mark'
+              last_name: 'Hamill'
+            - id: 2
+              first_name: 'Harrison'
+              last_name: 'Ford'
+            - id: 3
+              first_name: 'Carrie'
+              last_name: 'Fisher'
+
+  MovieRatingRequest:
+    type: object
+    properties:
+      movie_id:
+        type: integer
+        description: Movie to rate id
+      rating:
+        type: integer
+        description: My rate
+    required:
+      - movie_id
+      - rating
+    example:
+      movie_id: 1
+      rating: 10
+
+  # <!-- ###################MovieCommentRequest############################# -->
+  MovieCommentRequest:
+    type: object
+    properties:
+      movie_id:
+        type: integer
+        description: Movie to rate id
+      comment:
+        type: string
+        description: My comment
+    required:
+      - movie_id
+      - comment
+    example:
+      movie_id: 1
+      comment: 'sample comment'
+  # <!-- ###################MovieCommentRequest############################# -->
+
+  MovieLibraryRequest:
+    type: object
+    properties:
+      movie_id:
+        type: integer
+        description: Movie to rate id
+      status:
+        type: string
+        enum:
+          - 'Seen'
+          - 'Want to see'
+        description: My status for movie
+    required:
+      - movie_id
+      - status
+    example:
+      movie_id: 1
+      rating: 'Seen'
+
+  MovieRequest:
+    type: object
+    properties:
+      movie_id:
+        type: integer
+        description: Movie to rate id
+      genre:
+        type: string
+        enum:
+          - Action
+          - Comedy
+          - Drama
+          - Science fiction
+          - Thriller
+        description: Movie genre
+      title:
+        type: string
+        description: Movie title
+      year:
+        type: string
+        format: 'yyyy'
+        description: Movie release year
+      director:
+        type: string
+        description: Movie director
+    required:
+      - movie_id
+      - genre
+      - title
+      - year
+      - director
+    example:
+      movie_id: 1
+      genre: 'Science fiction'
+      title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+      year: '1977'
+      director: 'George Lucas'
+
+  # <!-- ###################MovieEditRequest############################# -->
+  MovieEditRequest:
+    type: object
+    properties:
+      genre:
+        type: string
+        enum:
+          - Action
+          - Comedy
+          - Drama
+          - Science fiction
+          - Thriller
+        description: Movie genre
+      title:
+        type: string
+        description: Movie title
+      year:
+        type: string
+        format: 'yyyy'
+        description: Movie release year
+      director:
+        type: string
+        description: Movie director
+    required:
+      - genre
+      - title
+      - year
+      - director
+    example:
+      genre: 'Science fiction'
+      title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+      year: '1977'
+      director: 'George Lucas'
+  # <!-- #######################MovieEditRequest######################### -->
+
+  # <!-- ###################MovieDeleteRequest############################# -->
+  MovieDeleteRequest:
+    type: object
+    properties:
+      movie_id:
+        type: integer
+        description: Movie by id to delete
+    required:
+      - movie_id
+    example:
+      movie_id: 1
+  # <!-- #######################MovieDeleteRequest######################### -->
+
+paths:
+  /user:
+    post:
+      summary: Register user.
+      operationId: postUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: New user data.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterUserRequest'
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+
+  # <!-- #######################/user/{_id}######################### -->
+  /user/{id}:
+    put:
+      summary: Update user.
+      operationId: putUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: Update user data.
+          in: path
+          name: id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/definitions/UpdateUserRequest'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+  # <!-- #######################/user/{_id}######################### -->
+
+  /authenticate:
+    post:
+      summary: Authenticate user.
+      operationId: postAuthenticate
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: Credentials data.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/AuthenticationRequest'
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error, e.g. bad credentials data
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+
+  /movie:
+    get:
+      summary: Getting movie list, filter data via query request params.
+      operationId: getMovie
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: Number of records to return
+          in: query
+          name: limit
+          required: true
+          type: integer
+        - description: Initial index of records to return
+          in: query
+          name: offset
+          required: true
+          type: integer
+        - description: Phrase to search
+          in: query
+          name: search
+          required: false
+          type: string
+      responses:
+        200:
+          description: 200 Movie list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/MovieList'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Add movie.
+      operationId: postMovie
+      parameters:
+        - description: New movie data.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/MovieRequest'
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/definitions/Movie'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+
+    # <!-- ###################/movie/put############################# -->
+    put:
+      summary: Edit movie.
+      operationId: putMovie
+      parameters:
+        - description: Edit movie data.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/MovieEditRequest'
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/definitions/Movie'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+   # <!-- ######################/movie/put########################## -->
+
+  /movie/rate:
+    post:
+      summary: Rate movie.
+      operationId: postMovieRate
+      parameters:
+        - description: Movie rate.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/MovieRatingRequest'
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/definitions/Movie'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+
+  # <!-- #######################/movie/comment######################### -->
+  /movie/comment:
+    post:
+      summary: Comment movie.
+      operationId: postMovieComment
+      parameters:
+        - description: Movie comment.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/MovieCommentRequest'
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/definitions/Movie'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+  # <!-- #######################/movie/comment######################### -->
+
+  /library:
+    post:
+      summary: Add movie to library.
+      operationId: postLibrary
+      parameters:
+        - description: Movie library data.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/MovieLibraryRequest'
+      responses:
+        204:
+          description: 204 Success
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+    # <!-- #######################delete######################### -->
+    delete:
+      summary: Delete movie from library.
+      operationId: deleteLibrary
+      parameters:
+        - description: Movie library data.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/MovieDeleteRequest'
+      responses:
+        204:
+          description: 204 Success
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 404 Not found
+          schema:
+            $ref: '#/definitions/Error'
+        405:
+          description: 405 Method not allowed
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+    # <!-- #######################delete######################### -->
+
+  /movie/{id}/accept:
+    put:
+      summary: Accept pending movie request
+      operationId: putMovieIdAccept
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: Movie id
+          in: path
+          name: id
+          required: true
+          type: integer
+      responses:
+        204:
+          description: 204 Success
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: 403 Forbidden error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+
+  /movie/{id}/reject:
+    put:
+      summary: Reject pending movie request
+      operationId: putMovieIdReject
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: Movie id
+          in: path
+          name: id
+          required: true
+          type: integer
+      responses:
+        204:
+          description: 204 Success
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: 403 Forbidden error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
