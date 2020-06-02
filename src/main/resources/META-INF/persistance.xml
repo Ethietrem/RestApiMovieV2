@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+    <persistence-unit name="manager" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- tu sa wszystkie klasy -->
+        <class>pl.wsb.students.model.MovieLibraryStatus</class>
+        <class>pl.wsb.students.model.Actor</class>
+        <class>pl.wsb.students.model.Movie</class>
+        <class>pl.wsb.students.model.MovieLibrary</class>
+        <class>pl.wsb.students.model.UserAccount</class>
+        <class>pl.wsb.students.model.Director</class>
+        <class>pl.wsb.students.model.ApiToken</class>
+        <class>pl.wsb.students.model.MovieRequestStatus</class>
+        <class>pl.wsb.students.model.MovieRating</class>
+        <class>pl.wsb.students.model.UserAccountRole</class>
+        <class>pl.wsb.students.model.MovieActor</class>
+        <class>pl.wsb.students.model.MovieGenre</class>
+        <class>pl.wsb.students.model.Role</class>
+        <properties>
+            <!-- konfiguracja połączenia z BD - sterownik z pom.xml -->
+            <property name="javax.persistence.jdbc.driver"
+                      value="com.mysql.cj.jdbc.Driver" />
+            <!-- user -->
+            <property name="javax.persistence.jdbc.user" value="java_wsb" />
+            <!-- haslo user ??? -->
+            <property name="javax.persistence.jdbc.password"
+                      value="55AXE3rPv2cUJc8j" />
+            <!-- link do MySQL - xamp -->
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/java_wsb?
+useLegacyDatetimeCode=false&amp;serverTimezone=CET" />
+            <!-- składnia dla hibernate -->
+            <property name="hibernate.dialect"
+                      value="org.hibernate.dialect.MySQLDialect" />
+            <!-- do validowania BD -->
+            <property name="hibernate.hbm2ddl.auto" value="validate" />
+            <!-- do pokazania SQLi które wykonuje -->
+            <property name="hibernate.show_sql" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>
