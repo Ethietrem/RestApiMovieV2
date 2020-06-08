@@ -2,6 +2,10 @@ package pl.wsb.students.hibernatemodel;
 // Generated 2020-06-02 20:10:05 by Hibernate Tools 4.3.1
 
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import pl.wsb.students.exceptions.ValidationException;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,11 +18,9 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "user_account", catalog = "java_course_wsb", uniqueConstraints =
+@Table(name = "user_account", catalog = "java_wsb", uniqueConstraints =
 @UniqueConstraint(columnNames = "email"))
 public class UserAccount  implements java.io.Serializable {
-
-
     private Integer id;
     private Date created;
     private Date modified;
@@ -53,6 +55,24 @@ public class UserAccount  implements java.io.Serializable {
         this.userAccountRoles = userAccountRoles;
         this.movieRatings = movieRatings;
         this.apiTokens = apiTokens;
+    }
+
+    public boolean validatePass(String password) throws ValidationException {
+        if (StringUtils.isBlank(password)) {
+            return false;
+        } //if
+        return generatePassHash(password, this.passSalt).equalsIgnoreCase(this.passHash);
+    }
+    public String generatePassHash(String password, String salt) throws ValidationException {
+        if (StringUtils.isBlank(password)) {
+            throw new ValidationException("Password is empty...");
+        } //if
+        if (StringUtils.isBlank(salt)) {
+            throw new ValidationException("Salt is empty...");
+        } //if
+        return DigestUtils.sha256Hex(
+                String.format("%s%s", password, salt)
+        );
     }
 
     @Id

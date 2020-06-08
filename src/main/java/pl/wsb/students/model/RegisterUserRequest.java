@@ -15,6 +15,9 @@ package pl.wsb.students.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.StringUtils;
+import pl.wsb.students.exceptions.ValidationException;
+
 import javax.validation.constraints.*;
 
 /**
@@ -108,5 +111,20 @@ public class RegisterUserRequest   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+  /*
+  Metoda pomocnicza do walidacji danych rejestracyjnych Użytkownika
+
+  Metoda ta sprawdza niepustość dostarczonych danych,
+  oraz rzuca odpowiednim wyjątkiem w razie potrzeby
+   */
+  public void validateData() throws ValidationException {
+    if (StringUtils.isBlank(this.email)) {
+      throw new ValidationException("Please provide email address...");
+    }
+    if (StringUtils.isBlank(this.password)) {
+      throw new ValidationException("Please provide password...");
+    }
   }
 }

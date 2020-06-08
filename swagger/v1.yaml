@@ -371,6 +371,30 @@ definitions:
       movie_id: 1
   # <!-- #######################MovieDeleteRequest######################### -->
 
+  # <!-- #######################AuthenticationResponse######################### -->
+  AuthenticationResponse:
+    type: object
+    properties:
+      access_token:
+        type: string
+      expires_in:
+        type: integer
+      user_id:
+        type: integer
+      email_address:
+        type: string
+    required:
+      - access_token
+      - expires_in
+      - user_id
+      - email_address
+    example:
+      access_token: 'user_access_token'
+      expires_in: 1800
+      user_id: 1
+      user_mail: 'uzytkownik@java-course-wsb.pl'
+  # <!-- #######################AuthenticationResponse######################### -->
+
 paths:
   /user:
     post:
@@ -425,6 +449,10 @@ paths:
           description: 400 Client error, e.g. unsifficient data
           schema:
             $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error, e.g. bad credentials data
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: 500 Server error, e.g. unexpeected application exception
           schema:
@@ -450,7 +478,7 @@ paths:
         200:
           description: 200 Success
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/AuthenticationResponse'
         400:
           description: 400 Client error, e.g. unsifficient data
           schema:
@@ -464,6 +492,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
+  # <!-- ###########/movie/put############ -->
   /movie:
     get:
       summary: Getting movie list, filter data via query request params.

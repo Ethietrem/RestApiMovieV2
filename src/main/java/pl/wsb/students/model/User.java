@@ -15,6 +15,9 @@ package pl.wsb.students.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import pl.wsb.students.exceptions.ApiException;
+import pl.wsb.students.hibernatemodel.UserAccount;
+
 import javax.validation.constraints.*;
 
 /**
@@ -108,5 +111,12 @@ public class User   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+  public static User createFromUserAccount(UserAccount userAccount) throws ApiException{
+    if (userAccount == null){
+      throw new ApiException("UserAccount is null ...");
+    }
+    return new User().email(userAccount.getEmail()).id(userAccount.getId());
   }
 }

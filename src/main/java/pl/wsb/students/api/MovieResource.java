@@ -3,6 +3,7 @@ package pl.wsb.students.api;
 import pl.wsb.students.consts.ApiEndpoints;
 import pl.wsb.students.model.MovieRatingRequest;
 import pl.wsb.students.model.MovieRequest;
+import pl.wsb.students.security.annotation.Authenticate;
 
 import javax.persistence.Persistence;
 import javax.ws.rs.*;
@@ -20,28 +21,38 @@ public class MovieResource {
             @QueryParam(ApiEndpoints.PARAM_SEARCH) String search
     ) {
         //to jest do testowania endpointow na koniec 2 lab do sprawdzenia poprawności mapowań itp
-        Persistence.createEntityManagerFactory("manager").createEntityManager();
+        //Persistence.createEntityManagerFactory("manager").createEntityManager();
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
+
+    @Authenticate
     @POST
     public Response postMovie(MovieRequest body) {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
+
+    @Authenticate
     @POST
     @Path(ApiEndpoints.MOVIE_RATE)//dodanie anotacji Path dla niektórych metod w celu uwzględnienia zagnieżdżonych urli
     public Response postMovieRate(MovieRatingRequest body) {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
+
+    @Authenticate
     @PUT
     @Path(ApiEndpoints.MOVIE_ID_ACCEPT)
     public Response putMovieIdAccept(Integer id) {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
+
+    @Authenticate
     @PUT
     @Path(ApiEndpoints.MOVIE_ID_REJECT)
     public Response putMovieIdReject(Integer id) {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
+
+    @Authenticate
     @POST
     @Path(ApiEndpoints.MOVIE_COMMENT)//dodanie anotacji Path dla niektórych metod w celu uwzględnienia zagnieżdżonych urli
     public Response postMovieComment(MovieRatingRequest body) {

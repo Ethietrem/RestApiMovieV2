@@ -14,7 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "movie_request_status", catalog = "java_course_wsb", uniqueConstraints =
+@Table(name = "movie_request_status", catalog = "java_wsb", uniqueConstraints =
 @UniqueConstraint(columnNames = "abbr"))
 public class MovieRequestStatus  implements java.io.Serializable {
      private Integer id;

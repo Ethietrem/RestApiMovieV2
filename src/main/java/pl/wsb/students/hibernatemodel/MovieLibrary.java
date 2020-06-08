@@ -12,9 +12,8 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "movie_library", catalog = "java_course_wsb", uniqueConstraints =
-@UniqueConstraint(columnNames = {
-        "movie_id", "user_account_id" }))
+@Table(name = "movie_library", catalog = "java_wsb", uniqueConstraints =
+@UniqueConstraint(columnNames = {"movie_id", "user_id" }))
 public class MovieLibrary  implements java.io.Serializable {
      private Integer id;
      private Movie movie;
@@ -72,7 +71,7 @@ public class MovieLibrary  implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_account_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     public UserAccount getUserAccount() {
         return this.userAccount;
     }

@@ -40,7 +40,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  *
  */
 @Entity
-@Table(name = "role", catalog = "java_course_wsb", uniqueConstraints =
+@Table(name = "role", catalog = "java_wsb", uniqueConstraints =
 @UniqueConstraint(columnNames = "abbr"))
 public class Role  implements java.io.Serializable {
      private Integer id;

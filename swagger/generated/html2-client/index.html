@@ -735,6 +735,30 @@ margin-bottom: 20px;
     "password" : "password"
   }
 };
+        defs["AuthenticationResponse"] = {
+  "type" : "object",
+  "required" : [ "access_token", "email_address", "expires_in", "user_id" ],
+  "properties" : {
+    "access_token" : {
+      "type" : "string"
+    },
+    "expires_in" : {
+      "type" : "integer"
+    },
+    "user_id" : {
+      "type" : "integer"
+    },
+    "email_address" : {
+      "type" : "string"
+    }
+  },
+  "example" : {
+    "access_token" : "user_access_token",
+    "expires_in" : 1800,
+    "user_id" : 1,
+    "user_mail" : "uzytkownik@java-course-wsb.pl"
+  }
+};
         defs["Error"] = {
   "type" : "object",
   "required" : [ "message" ],
@@ -2124,7 +2148,7 @@ public class DefaultApiExample {
         DefaultApi apiInstance = new DefaultApi();
         AuthenticationRequest body = ; // AuthenticationRequest | Credentials data.
         try {
-            User result = apiInstance.postAuthenticate(body);
+            AuthenticationResponse result = apiInstance.postAuthenticate(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#postAuthenticate");
@@ -2143,7 +2167,7 @@ public class DefaultApiExample {
         DefaultApi apiInstance = new DefaultApi();
         AuthenticationRequest body = ; // AuthenticationRequest | Credentials data.
         try {
-            User result = apiInstance.postAuthenticate(body);
+            AuthenticationResponse result = apiInstance.postAuthenticate(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#postAuthenticate");
@@ -2163,7 +2187,7 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // Authenticate user.
 [apiInstance postAuthenticateWith:body
-              completionHandler: ^(User output, NSError* error) {
+              completionHandler: ^(AuthenticationResponse output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2216,7 +2240,7 @@ namespace Example
             try
             {
                 // Authenticate user.
-                User result = apiInstance.postAuthenticate(body);
+                AuthenticationResponse result = apiInstance.postAuthenticate(body);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2349,7 +2373,7 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "200 Success",
   "schema" : {
-    "$ref" : "#/definitions/User"
+    "$ref" : "#/definitions/AuthenticationResponse"
   }
 };
                                         var schema = schemaWrapper.schema;
@@ -6187,6 +6211,49 @@ except ApiException as e:
                                     </script>
                                   </div>
                                   <input id='responses-putUser-400-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 401 - 401 Unauthorized error, e.g. bad credentials data </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-putUser-401-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-putUser-401-schema">
+                                  <div id='responses-putUser-401-schema-401' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "401 Unauthorized error, e.g. bad credentials data",
+  "schema" : {
+    "$ref" : "#/definitions/Error"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-putUser-401-schema-data').val(stringify(schema));
+                                        var result = $('#responses-putUser-401-schema-401');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-putUser-401-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 

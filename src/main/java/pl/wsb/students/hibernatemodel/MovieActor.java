@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "movie_actor", catalog = "java_course_wsb", uniqueConstraints =
+@Table(name = "movie_actor", catalog = "java_wsb", uniqueConstraints =
 @UniqueConstraint(columnNames = {"movie_id", "actor_id" }))
 public class MovieActor  implements java.io.Serializable {
      private Integer id;

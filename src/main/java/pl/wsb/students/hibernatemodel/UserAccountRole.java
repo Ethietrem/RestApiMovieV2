@@ -12,8 +12,8 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "user_account_role", catalog = "java_course_wsb", uniqueConstraints =
-@UniqueConstraint(columnNames = {"user_account_id", "role_id" }))
+@Table(name = "user_account_role", catalog = "java_wsb", uniqueConstraints =
+@UniqueConstraint(columnNames = {"user_id", "role_id" }))
 public class UserAccountRole  implements java.io.Serializable {
      private Integer id;
      private Role role;
@@ -58,7 +58,7 @@ public class UserAccountRole  implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_account_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     public UserAccount getUserAccount() {
         return this.userAccount;
     }
