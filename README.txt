@@ -15,6 +15,21 @@ Creating a table, filling with values
 Object-relational table mapping (Hibernate Reverse Engineering Tool; NetBeans)
 Verification?
 
+    *3rd commit*
+Data access layers - EntityManager
+General authentication architecture
+Implementation of registration
+Verification
+Bug fix
+
+    *4th commit*
+Introduction to unit tests
+Performing the AuthenticateResource sample test
+Introduction to Java FX technology (not available here)
+Add mockito tests
+Jersey tests?
+Bug fix
+
 
 
 ***********************************************************************************************************************

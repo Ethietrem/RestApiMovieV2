@@ -28,7 +28,7 @@
             <property name="javax.persistence.jdbc.user" value="java_wsb" />
             <!-- haslo user ??? -->
             <property name="javax.persistence.jdbc.password"
-                      value="55AXE3rPv2cUJc8j" />
+                      value="ammfmLHCINh2wBbY" />
             <!-- link do MySQL - xamp -->
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://localhost:3306/java_wsb?
