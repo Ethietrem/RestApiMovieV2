@@ -13,6 +13,8 @@
 package pl.wsb.students.model;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
@@ -71,6 +73,24 @@ public class RegisterUserRequest   {
     this.password = password;
   }
 
+  public void passwordIsValid() throws ValidationException{                                                                  //sprawdzenie warunkow do hasla metoda
+    Pattern upperCasePatten = Pattern.compile("[A-Z ]");
+    Pattern lowerCasePatten = Pattern.compile("[a-z ]");
+    Pattern digitCasePatten = Pattern.compile("[0-9 ]");
+
+    if (this.password.length() < 8) {
+      throw new ValidationException("Password lenght must have at least 8 character !!");
+    }
+    if (!upperCasePatten.matcher(this.password).find()) {
+      throw new ValidationException("Password must have at least one uppercase character !!");
+    }
+    if (!lowerCasePatten.matcher(this.password).find()) {
+      throw new ValidationException("Password must have at least one lowercase character !!");
+    }
+    if (!digitCasePatten.matcher(this.password).find()) {
+      throw new ValidationException("Password must have at least one digit character !!");
+    }
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {

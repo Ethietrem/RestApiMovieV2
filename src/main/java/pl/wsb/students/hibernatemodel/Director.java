@@ -26,10 +26,10 @@ public class Director  implements java.io.Serializable {
     public Director() {
     }
 
-	
     public Director(Date modified) {
         this.modified = modified;
     }
+
     public Director(Date created, Date modified, String firstName, String lastName, Integer deleted, Set<Movie> movies) {
        this.created = created;
        this.modified = modified;
@@ -105,10 +105,6 @@ public class Director  implements java.io.Serializable {
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
     }
-
-
-
-
 }
 
 

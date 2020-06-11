@@ -7,19 +7,20 @@
     <persistence-unit name="manager" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- tu sa wszystkie klasy -->
-        <class>pl.wsb.students.model.MovieLibraryStatus</class>
-        <class>pl.wsb.students.model.Actor</class>
-        <class>pl.wsb.students.model.Movie</class>
-        <class>pl.wsb.students.model.MovieLibrary</class>
-        <class>pl.wsb.students.model.UserAccount</class>
-        <class>pl.wsb.students.model.Director</class>
-        <class>pl.wsb.students.model.ApiToken</class>
-        <class>pl.wsb.students.model.MovieRequestStatus</class>
-        <class>pl.wsb.students.model.MovieRating</class>
-        <class>pl.wsb.students.model.UserAccountRole</class>
-        <class>pl.wsb.students.model.MovieActor</class>
-        <class>pl.wsb.students.model.MovieGenre</class>
-        <class>pl.wsb.students.model.Role</class>
+        <class>pl.wsb.students.hibernatemodel.MovieLibraryStatus</class>
+        <class>pl.wsb.students.hibernatemodel.Actor</class>
+        <class>pl.wsb.students.hibernatemodel.Movie</class>
+        <class>pl.wsb.students.hibernatemodel.MovieLibrary</class>
+        <class>pl.wsb.students.hibernatemodel.UserAccount</class>
+        <class>pl.wsb.students.hibernatemodel.Director</class>
+        <class>pl.wsb.students.hibernatemodel.ApiToken</class>
+        <class>pl.wsb.students.hibernatemodel.MovieRequestStatus</class>
+        <class>pl.wsb.students.hibernatemodel.MovieRating</class>
+        <class>pl.wsb.students.hibernatemodel.UserAccountRole</class>
+        <class>pl.wsb.students.hibernatemodel.MovieActor</class>
+        <class>pl.wsb.students.hibernatemodel.MovieGenre</class>
+        <class>pl.wsb.students.hibernatemodel.MovieComment</class>
+        <class>pl.wsb.students.hibernatemodel.Role</class>
         <properties>
             <!-- konfiguracja połączenia z BD - sterownik z pom.xml -->
             <property name="javax.persistence.jdbc.driver"

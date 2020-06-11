@@ -52,9 +52,10 @@ public class MovieResource {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
 
+    //******************************************************************************************************************
     @Authenticate
     @POST
-    @Path(ApiEndpoints.MOVIE_COMMENT)//dodanie anotacji Path dla niektórych metod w celu uwzględnienia zagnieżdżonych urli
+    @Path(ApiEndpoints.MOVIE_COMMENT)
     public Response postMovieComment(MovieRatingRequest body) {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }

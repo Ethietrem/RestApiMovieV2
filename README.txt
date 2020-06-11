@@ -30,6 +30,14 @@ Add mockito tests
 Jersey tests?
 Bug fix
 
+    *5th commit*
+Adding new data models and endpoints for the API
+Swagger generation
+Implementation
+Tests
+Database edition
+Generating hibernate from the database
+Tests
 
 
 ***********************************************************************************************************************
@@ -43,3 +51,8 @@ Swagger - narzedzie do modelowania API
 
 <project><dependency> - zaleznosci projektu, takie pomocnicze biblioteki
          <plugin> - dodatkowe wtyczki np wtyczka do usługi sieciowej servera org.eclipse.jetty
+
+Kod odpowiedzi HTTP – informujący klienta o stanie zakończenia operacji, w ogólności można przyjąć następującą konwencję:
+    a. kod 2xx – powodzenie operacji, np. 200 dla GET, 204 dla PUT,
+    b. kod 4xx – błąd u klienta, np. 401 – brak uwierzytelnienia, 403 – brak uprawnień, 404 – zasób nie został znaleziony,
+    c. kod 5xx – błąd serwera, np. wystąpienie nieoczekiwanego wyjątku aplikacji.

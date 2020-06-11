@@ -27,14 +27,15 @@ public class Movie  implements java.io.Serializable {
     private Set<MovieLibrary> movieLibraries = new HashSet<>(0);
     private Set<MovieActor> movieActors = new HashSet<>(0);
     private Set<MovieRating> movieRatings = new HashSet<>(0);
+    private Set<MovieComment> movieComments = new HashSet<>(0);
 
     public Movie() {
     }
 
-	
     public Movie(Date modified) {
         this.modified = modified;
     }
+
     public Movie(Director director, MovieGenre movieGenre, Date created, Date modified, String title, String releaseYear, MovieRequestStatus
             movieRequestStatus, Integer deleted, Set<MovieLibrary> movieLibraries, Set<MovieActor> movieActors, Set<MovieRating> movieRatings) {
        this.director = director;
@@ -48,6 +49,7 @@ public class Movie  implements java.io.Serializable {
        this.movieLibraries = movieLibraries;
        this.movieActors = movieActors;
        this.movieRatings = movieRatings;
+       this.movieComments = movieComments;
     }
 
     @Id
@@ -118,6 +120,7 @@ public class Movie  implements java.io.Serializable {
     public void setReleaseYear(String releaseYear) {
         this.releaseYear = releaseYear;
     }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_status_id")
     public MovieRequestStatus getMovieRequestStatus() {
@@ -162,4 +165,9 @@ public class Movie  implements java.io.Serializable {
     public void setMovieRatings(Set<MovieRating> movieRatings) {
         this.movieRatings = movieRatings;
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
+    public Set<MovieComment> getMovieComments() {return this.movieComments;}
+
+    public void setMovieComments(Set<MovieComment> movieComments) {this.movieComments = movieComments;}
 }

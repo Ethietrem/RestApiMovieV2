@@ -31,6 +31,7 @@ public class UserAccount  implements java.io.Serializable {
     private Set<MovieLibrary> movieLibraries = new HashSet<>(0);
     private Set<UserAccountRole> userAccountRoles = new HashSet<>(0);
     private Set<MovieRating> movieRatings = new HashSet<>(0);
+    private Set<MovieComment> movieComments = new HashSet<>(0);
     private Set<ApiToken> apiTokens = new HashSet<>(0);
 
     public UserAccount() {
@@ -44,7 +45,7 @@ public class UserAccount  implements java.io.Serializable {
     }
 
     public UserAccount(Date created, Date modified, String email, String passHash, String passSalt, Integer deleted, Set<MovieLibrary> movieLibraries,
-                       Set<UserAccountRole> userAccountRoles, Set<MovieRating> movieRatings, Set<ApiToken> apiTokens) {
+                       Set<UserAccountRole> userAccountRoles, Set<MovieRating> movieRatings, Set<MovieComment> movieComments, Set<ApiToken> apiTokens) {
         this.created = created;
         this.modified = modified;
         this.email = email;
@@ -54,6 +55,7 @@ public class UserAccount  implements java.io.Serializable {
         this.movieLibraries = movieLibraries;
         this.userAccountRoles = userAccountRoles;
         this.movieRatings = movieRatings;
+        this.movieComments = movieComments;
         this.apiTokens = apiTokens;
     }
 
@@ -168,6 +170,11 @@ public class UserAccount  implements java.io.Serializable {
     public void setMovieRatings(Set<MovieRating> movieRatings) {
         this.movieRatings = movieRatings;
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccount")
+    public Set<MovieComment> getMovieComments() { return this.movieComments;}
+
+    public void setMovieComments(Set<MovieComment> movieComments) { this.movieComments = movieComments;}
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccount")
     public Set<ApiToken> getApiTokens() {

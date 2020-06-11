@@ -8,6 +8,7 @@ import pl.wsb.students.model.UpdateUserRequest;
 
 import pl.wsb.students.model.User;
 import pl.wsb.students.repository.impl.UserAccountRepository;
+import pl.wsb.students.security.annotation.Authenticate;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -44,9 +45,19 @@ public class UserResource
         }
     }
 
+    //******************************************************************************************************************
+    @Authenticate
     @PUT
     @Path(ApiEndpoints.USER_ID_UPDATE)
     public Response putUser(UpdateUserRequest body) {
+        return Response.status(Response.Status.OK).entity("mock call ok...").build();
+    }
+
+    //******************************************************************************************************************
+    @Authenticate
+    @PUT
+    @Path(ApiEndpoints.USER_ID_LOGOUT)
+    public Response putUserLogout(UpdateUserRequest body) {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
 }

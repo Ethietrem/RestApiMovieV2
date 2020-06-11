@@ -27,6 +27,7 @@ public class LibraryResource {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
 
+    //******************************************************************************************************************
     @Authenticate
     @DELETE
     public Response deleteLibrary(MovieDeleteRequest body) {

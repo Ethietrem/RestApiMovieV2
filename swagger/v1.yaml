@@ -12,6 +12,7 @@ consumes:
 produces:
   - application/json
 
+#<!-- to są ogólne modele danych i są w sekcji definitions -->
 definitions:
   Error:
     type: object
@@ -40,7 +41,7 @@ definitions:
       email: 'uzytkownik@java-course-wsb.pl'
       password: 'password'
 
-  # <!-- ###################MovieEditRequest############################# -->
+  # <!-- ###################UpdateUserRequest############################# -->
   UpdateUserRequest:
     type: object
     properties:
@@ -61,7 +62,7 @@ definitions:
       id: 1
       email: 'uzytkownik@java-course-wsb.pl'
       password: 'password'
-  # <!-- ###################MovieEditRequest############################# -->
+  # <!-- ###################UpdateUserRequest############################# -->
 
   User:
     type: object
@@ -92,6 +93,19 @@ definitions:
     example:
       email: 'uzytkownik@java-course-wsb.pl'
       password: 'password'
+
+  # <!-- ###################LogOutUserRequest############################# -->
+  LogOutUserRequest:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: User id
+    required:
+      - id
+    example:
+      id: 1
+  # <!-- ###################LogOutUserRequest############################# -->
 
   Actor:
     type: object
@@ -156,6 +170,7 @@ definitions:
       id: 1
       genre: 'Science fiction'
       title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+      rating: 7
       year: '1977'
       director: 'George Lucas'
       actors:
@@ -168,6 +183,7 @@ definitions:
         - id: 3
           first_name: 'Carrie'
           last_name: 'Fisher'
+      comment: 'sample comment'
 
   MovieList:
     type: object
@@ -189,6 +205,7 @@ definitions:
         - id: 1
           genre: 'Science fiction'
           title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+          rating: 7
           year: '1977'
           director: 'George Lucas'
           actors:
@@ -201,9 +218,11 @@ definitions:
             - id: 3
               first_name: 'Carrie'
               last_name: 'Fisher'
+          comment: 'sample comment'
         - id: 1
           genre: 'Science fiction'
           title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+          rating: 3
           year: '1977'
           director: 'George Lucas'
           actors:
@@ -216,9 +235,11 @@ definitions:
             - id: 3
               first_name: 'Carrie'
               last_name: 'Fisher'
+          comment: 'sample comment'
         - id: 1
           genre: 'Science fiction'
           title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
+          rating: 4
           year: '1977'
           director: 'George Lucas'
           actors:
@@ -231,6 +252,7 @@ definitions:
             - id: 3
               first_name: 'Carrie'
               last_name: 'Fisher'
+          comment: 'sample comment'
 
   MovieRatingRequest:
     type: object
@@ -263,6 +285,7 @@ definitions:
       - comment
     example:
       movie_id: 1
+      title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
       comment: 'sample comment'
   # <!-- ###################MovieCommentRequest############################# -->
 
@@ -395,6 +418,7 @@ definitions:
       user_mail: 'uzytkownik@java-course-wsb.pl'
   # <!-- #######################AuthenticationResponse######################### -->
 
+#<!-- to są endpointy dla API i są w sekcji paths -->
 paths:
   /user:
     post:
@@ -420,6 +444,14 @@ paths:
           description: 400 Client error, e.g. unsifficient data
           schema:
             $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error, e.g. bad credentials data
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: 403 Forbidden error, e.g. forbidden acces
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: 500 Server error, e.g. unexpeected application exception
           schema:
@@ -429,7 +461,7 @@ paths:
   /user/{id}:
     put:
       summary: Update user.
-      operationId: putUser
+      operationId: putUserId
       consumes:
         - application/json
       produces:
@@ -453,11 +485,53 @@ paths:
           description: 401 Unauthorized error, e.g. bad credentials data
           schema:
             $ref: '#/definitions/Error'
+        403:
+          description: 403 Forbidden error, e.g. forbidden acces
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: 500 Server error, e.g. unexpeected application exception
           schema:
             $ref: '#/definitions/Error'
   # <!-- #######################/user/{_id}######################### -->
+
+  # <!-- #######################/user/{_id}/logout######################### -->
+  /user/{id}/logout:
+    put:
+      summary: Logout user.
+      operationId: putUserIdLogout
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: Logout user.
+          in: path
+          name: id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            $ref: '#/definitions/LogOutUserRequest'
+        400:
+          description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error, e.g. bad credentials data
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: 403 Forbidden error, e.g. forbidden acces
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: 500 Server error, e.g. unexpeected application exception
+          schema:
+            $ref: '#/definitions/Error'
+  # <!-- #######################/user/{_id}/logout######################### -->
 
   /authenticate:
     post:
@@ -485,6 +559,10 @@ paths:
             $ref: '#/definitions/Error'
         401:
           description: 401 Unauthorized error, e.g. bad credentials data
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: 403 Forbidden error, e.g. forbidden acces
           schema:
             $ref: '#/definitions/Error'
         500:
@@ -526,6 +604,14 @@ paths:
               $ref: '#/definitions/MovieList'
         400:
           description: 400 Client error, e.g. unsifficient data
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 401 Unauthorized error, e.g. bad credentials data
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: 403 Forbidden error, e.g. forbidden acces
           schema:
             $ref: '#/definitions/Error'
         500:
@@ -696,6 +782,10 @@ paths:
             $ref: '#/definitions/Error'
         401:
           description: 401 Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: 403 Forbidden error, e.g. forbidden acces
           schema:
             $ref: '#/definitions/Error'
         404:

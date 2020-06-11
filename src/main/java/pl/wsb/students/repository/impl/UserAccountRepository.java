@@ -47,6 +47,7 @@ public class UserAccountRepository extends AbstractRepository<UserAccount, Integ
             throw new ValidationException("userRequest");
         } //if
         userRequest.validateData();
+        userRequest.passwordIsValid();
         UserAccount userAccount = findByEmail(userRequest.getEmail());
         if (userAccount != null) {
             throw new ValidationException("Provided email already taken...");
