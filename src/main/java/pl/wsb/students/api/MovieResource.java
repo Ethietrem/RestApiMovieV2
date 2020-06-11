@@ -1,8 +1,14 @@
 package pl.wsb.students.api;
 
+import org.apache.commons.lang3.StringUtils;
+import pl.wsb.students.api.handlers.ErrorHandler;
 import pl.wsb.students.consts.ApiEndpoints;
+import pl.wsb.students.exceptions.UnauthenticatedException;
+import pl.wsb.students.exceptions.ValidationException;
+import pl.wsb.students.hibernatemodel.Movie;
 import pl.wsb.students.model.MovieRatingRequest;
 import pl.wsb.students.model.MovieRequest;
+import pl.wsb.students.repository.impl.MovieRepository;
 import pl.wsb.students.security.annotation.Authenticate;
 
 import javax.persistence.Persistence;
@@ -28,7 +34,29 @@ public class MovieResource {
     @Authenticate
     @POST
     public Response postMovie(MovieRequest body) {
-        return Response.status(Response.Status.OK).entity("mock call ok...").build();
+        Persistence.createEntityManagerFactory("manager").createEntityManager();
+        try{
+            /*return Response.status(
+                    Response.Status.OK
+            ).entity(
+                    Movie.createFromMovie(
+                            movieRepository.addMovie(body)
+                    )
+            ).build();*/
+            return Response.status(Response.Status.OK).entity("mock call ok...").build();
+        /*}catch (ValidationException ex){
+            return Response.status(
+                    Response.Status.BAD_REQUEST
+            ).entity(
+                    ErrorHandler.getErrorResponse(ex)
+            ).build();*/
+        }catch (Exception ex) {
+            return Response.status(
+                    Response.Status.INTERNAL_SERVER_ERROR
+            ).entity(
+                    ErrorHandler.getErrorResponse(ex)
+            ).build();
+        }
     }
 
     @Authenticate
@@ -57,6 +85,29 @@ public class MovieResource {
     @POST
     @Path(ApiEndpoints.MOVIE_COMMENT)
     public Response postMovieComment(MovieRatingRequest body) {
-        return Response.status(Response.Status.OK).entity("mock call ok...").build();
+        Persistence.createEntityManagerFactory("manager").createEntityManager();
+        try{
+            MovieRepository movieRepository = new MovieRepository();
+            /*return Response.status(
+                    Response.Status.OK
+            ).entity(
+                    Movie.createFromMovie(
+                            movieRepository.addMovie(body)
+                    )
+            ).build();*/
+            return Response.status(Response.Status.OK).entity("mock call ok...").build();
+        /*}catch (ValidationException ex){
+            return Response.status(
+                    Response.Status.BAD_REQUEST
+            ).entity(
+                    ErrorHandler.getErrorResponse(ex)
+            ).build();*/
+        }catch (Exception ex) {
+            return Response.status(
+                    Response.Status.INTERNAL_SERVER_ERROR
+            ).entity(
+                    ErrorHandler.getErrorResponse(ex)
+            ).build();
+        }
     }
 }

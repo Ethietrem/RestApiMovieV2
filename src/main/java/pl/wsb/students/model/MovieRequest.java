@@ -17,6 +17,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.StringUtils;
+import pl.wsb.students.exceptions.ValidationException;
+
 import javax.validation.constraints.*;
 
 /**
@@ -222,5 +225,17 @@ public class MovieRequest   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+  /*
+  Metoda pomocnicza do walidacji danych rejestracyjnych Użytkownika
+
+  Metoda ta sprawdza niepustość dostarczonych danych,
+  oraz rzuca odpowiednim wyjątkiem w razie potrzeby
+   */
+  public void validateData() throws ValidationException {
+    if (StringUtils.isBlank(this.title)) {
+      throw new ValidationException("Please provide movie title...");
+    }
   }
 }

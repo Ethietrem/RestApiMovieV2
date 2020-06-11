@@ -5,7 +5,9 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import pl.wsb.students.exceptions.ValidationException;
 import pl.wsb.students.hibernatemodel.UserAccount;
+import pl.wsb.students.model.LogOutUserRequest;
 import pl.wsb.students.model.RegisterUserRequest;
+import pl.wsb.students.model.UpdateUserRequest;
 import pl.wsb.students.repository.AbstractRepository;
 import pl.wsb.students.repository.EntityManagerHelper;
 
@@ -72,6 +74,33 @@ public class UserAccountRepository extends AbstractRepository<UserAccount, Integ
         EntityManagerHelper.commitTransaction();
         UserAccountRoleRepository userAccountRoleRepository = new UserAccountRoleRepository();
         userAccountRoleRepository.assignUserToRole(userAccount, RoleRepository.findByAbbr("USER"));
+        return userAccount;
+    }
+
+    //edytowanie usera
+    //*********************************************************************************************************************
+    public UserAccount editUser(UpdateUserRequest editUser) throws ValidationException {
+        if (editUser == null) {
+            throw new ValidationException("userRequest");
+        } //if
+        editUser.validateData();
+        UserAccount userAccount = new UserAccount();
+        userAccount.setModified(new Date());
+        userAccount.setEmail(editUser.getEmail());
+        EntityManagerHelper.startTransaction();
+        userAccount = merge(userAccount);
+        EntityManagerHelper.commitTransaction();
+        return userAccount;
+    }
+
+    //wylogowanie usera
+    //*********************************************************************************************************************
+    public UserAccount logoutUser(LogOutUserRequest logoutUser) throws ValidationException {
+        if (logoutUser == null) {
+            throw new ValidationException("logoutRequest");
+        } //if
+        UserAccount userAccount = null;
+        //???????
         return userAccount;
     }
 }
