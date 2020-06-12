@@ -119,4 +119,18 @@ public class User   {
     }
     return new User().email(userAccount.getEmail()).id(userAccount.getId());
   }
+
+  public static User editUserAccount(UserAccount userAccount) throws ApiException{
+    if (userAccount == null){
+      throw new ApiException("UserAccount is null ...");
+    }
+    return new User().id(userAccount.getId());
+  }
+
+  public static User logoutFromUserAccount(UserAccount userAccount) throws ApiException{
+    if (userAccount == null){
+      throw new ApiException("UserAccount is null ...");
+    }
+    return new User().id(userAccount.getId());
+  }
 }

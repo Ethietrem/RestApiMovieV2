@@ -5,7 +5,7 @@ import pl.wsb.students.api.handlers.ErrorHandler;
 import pl.wsb.students.consts.ApiEndpoints;
 import pl.wsb.students.exceptions.UnauthenticatedException;
 import pl.wsb.students.exceptions.ValidationException;
-import pl.wsb.students.hibernatemodel.Movie;
+import pl.wsb.students.model.Movie;
 import pl.wsb.students.model.MovieRatingRequest;
 import pl.wsb.students.model.MovieRequest;
 import pl.wsb.students.repository.impl.MovieRepository;
@@ -16,10 +16,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static org.reflections.util.ConfigurationBuilder.build;
+
 @Path(ApiEndpoints.MOVIE)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class MovieResource {
+public class MovieResource extends AbstractResource{
     @GET
     public Response getMovie(
             @QueryParam(ApiEndpoints.PARAM_LIMIT) Integer limit,
@@ -31,19 +33,21 @@ public class MovieResource {
         return Response.status(Response.Status.OK).entity("mock call ok...").build();
     }
 
-    @Authenticate
+    //@Authenticate
     @POST
     public Response postMovie(MovieRequest body) {
         Persistence.createEntityManagerFactory("manager").createEntityManager();
         try{
+            MovieRepository movieRepository = new MovieRepository();
+            return Response.status(Response.Status.OK).entity("mock call ok...").build();
             /*return Response.status(
                     Response.Status.OK
             ).entity(
-                    Movie.createFromMovie(
+                    Movie.createMovie(
                             movieRepository.addMovie(body)
                     )
             ).build();*/
-            return Response.status(Response.Status.OK).entity("mock call ok...").build();
+
         /*}catch (ValidationException ex){
             return Response.status(
                     Response.Status.BAD_REQUEST
@@ -81,7 +85,7 @@ public class MovieResource {
     }
 
     //******************************************************************************************************************
-    @Authenticate
+    //@Authenticate
     @POST
     @Path(ApiEndpoints.MOVIE_COMMENT)
     public Response postMovieComment(MovieRatingRequest body) {

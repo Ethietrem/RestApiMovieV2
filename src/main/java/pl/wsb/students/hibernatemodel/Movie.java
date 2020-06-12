@@ -2,6 +2,8 @@ package pl.wsb.students.hibernatemodel;
 // Generated 2020-06-02 20:10:05 by Hibernate Tools 4.3.1
 
 
+import pl.wsb.students.exceptions.ApiException;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;

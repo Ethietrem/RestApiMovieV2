@@ -17,6 +17,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import pl.wsb.students.exceptions.ApiException;
+import pl.wsb.students.hibernatemodel.UserAccount;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.*;
@@ -301,5 +304,12 @@ public class Movie   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+  public static Movie createMovie(Movie createMovie) throws ApiException {
+    if (createMovie == null){
+      throw new ApiException("Movie is null ...");
+    }
+    return new Movie().title(createMovie.getTitle()).id(createMovie.getId());
   }
 }

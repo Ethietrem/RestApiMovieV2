@@ -46,7 +46,7 @@ public class UserResource extends AbstractResource{
     }
 
     //******************************************************************************************************************
-    @Authenticate
+    //@Authenticate
     @PUT
     @Path(ApiEndpoints.USER_ID_UPDATE)
     public Response putUser(UpdateUserRequest body) {
@@ -55,7 +55,7 @@ public class UserResource extends AbstractResource{
             return Response.status(
                     Response.Status.OK
             ).entity(
-                    User.createFromUserAccount(
+                    User.editUserAccount(
                             userAccountRepository.editUser(body)
                     )
             ).build();
@@ -75,7 +75,7 @@ public class UserResource extends AbstractResource{
     }
 
     //******************************************************************************************************************
-    @Authenticate
+    //@Authenticate
     @PUT
     @Path(ApiEndpoints.USER_ID_LOGOUT)
     public Response putUserLogout(LogOutUserRequest body) {
@@ -84,7 +84,7 @@ public class UserResource extends AbstractResource{
             return Response.status(
                     Response.Status.OK
             ).entity(
-                    User.createFromUserAccount(
+                    User.logoutFromUserAccount(
                             userAccountRepository.logoutUser(body)
                     )
             ).build();

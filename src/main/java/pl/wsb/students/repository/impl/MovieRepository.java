@@ -1,14 +1,10 @@
 package pl.wsb.students.repository.impl;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import pl.wsb.students.exceptions.ValidationException;
-import pl.wsb.students.hibernatemodel.Director;
 import pl.wsb.students.hibernatemodel.Movie;
-import pl.wsb.students.hibernatemodel.MovieGenre;
+import pl.wsb.students.model.MovieCommentRequest;
 import pl.wsb.students.model.MovieRequest;
-import pl.wsb.students.model.RegisterUserRequest;
 import pl.wsb.students.repository.AbstractRepository;
 import pl.wsb.students.repository.EntityManagerHelper;
 
@@ -23,6 +19,7 @@ public class MovieRepository extends AbstractRepository<Movie, Integer> {
         return Movie.class;
     }
 
+    //wyszukanie filmu po nazwie
     public Movie findByName(String title) {
         if (StringUtils.isBlank(title)) {
             return null;
@@ -63,8 +60,19 @@ public class MovieRepository extends AbstractRepository<Movie, Integer> {
         EntityManagerHelper.startTransaction();
         newMovie = merge(newMovie);
         EntityManagerHelper.commitTransaction();
-        MovieRepository movieRepository = new MovieRepository();
-        //movieRepository.assignUserToRole(newMovie, RoleRepository.findByAbbr("MOVIE"));
         return newMovie;
     }
+
+    /*
+    //dodanie komentarza do filmu
+    public Movie addMovieComment(MovieCommentRequest movieComment) throws ValidationException {
+        if (movieComment == null) {
+            throw new ValidationException("movieComment");
+        } //if
+
+        EntityManagerHelper.startTransaction();
+        newMovie = merge(newMovie);
+        EntityManagerHelper.commitTransaction();
+        return newMovie;
+    }*/
 }
