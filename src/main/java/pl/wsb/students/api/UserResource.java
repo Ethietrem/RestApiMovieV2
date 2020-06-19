@@ -2,18 +2,22 @@ package pl.wsb.students.api;
 
 import pl.wsb.students.api.handlers.ErrorHandler;
 import pl.wsb.students.consts.ApiEndpoints;
+import pl.wsb.students.exceptions.ApiException;
+import pl.wsb.students.exceptions.UnauthenticatedException;
 import pl.wsb.students.exceptions.ValidationException;
-import pl.wsb.students.model.LogOutUserRequest;
-import pl.wsb.students.model.RegisterUserRequest;
-import pl.wsb.students.model.UpdateUserRequest;
+import pl.wsb.students.hibernatemodel.UserAccount;
+import pl.wsb.students.exceptions.UnauthenticatedException;
+import pl.wsb.students.model.*;
 
-import pl.wsb.students.model.User;
+import pl.wsb.students.repository.impl.ApiTokenRepository;
 import pl.wsb.students.repository.impl.UserAccountRepository;
 import pl.wsb.students.security.annotation.Authenticate;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import static org.reflections.util.ConfigurationBuilder.build;
 
 @Path(ApiEndpoints.USER)
 @Produces(MediaType.APPLICATION_JSON)
@@ -22,7 +26,14 @@ public class UserResource extends AbstractResource{
     @POST
     public Response postUser(RegisterUserRequest body) {
         try {
-            UserAccountRepository userAccountRepository = new UserAccountRepository();
+            if (body == null) {
+                throw new ValidationException("No request data provided...");
+            }
+            UserAccountRepository userAccountRepository = new UserAccountRepository();//tworzymy obiekt usera i sprawdzenie czy taki email istnieje
+            UserAccount userAccount = userAccountRepository.findByEmail(body.getEmail());
+            if (userAccount == null) {
+                throw new UnauthenticatedException();
+            } //jesli nie ma to nie autoryzujemy
             return Response.status(
                     Response.Status.OK
             ).entity(
@@ -30,6 +41,12 @@ public class UserResource extends AbstractResource{
                             userAccountRepository.registerUser(body)
                     )
             ).build();
+        } catch (UnauthenticatedException ex) {
+            return Response.status(
+                    Response.Status.UNAUTHORIZED
+            ).entity(
+                    ErrorHandler.getErrorResponse(ex)
+            ).build();
         } catch (ValidationException ex) {
             return Response.status(
                     Response.Status.BAD_REQUEST
@@ -48,10 +65,17 @@ public class UserResource extends AbstractResource{
     //******************************************************************************************************************
     //@Authenticate
     @PUT
-    @Path(ApiEndpoints.USER_ID_UPDATE)
-    public Response putUser(UpdateUserRequest body) {
+    @Path(ApiEndpoints.USER_UPDATE)
+    public Response putUser(UpdateUserRequest body) {// tu jest problem 500internalServerError hibernatemodel.UserAccount>passHash
         try {
-            UserAccountRepository userAccountRepository = new UserAccountRepository();
+            if (body == null) {
+                throw new ValidationException("No request data provided...");
+            }
+            UserAccountRepository userAccountRepository = new UserAccountRepository();//tworzymy obiekt usera i sprawdzenie czy taki email istnieje
+            UserAccount userAccount = userAccountRepository.findByEmail(body.getEmail());
+            if (userAccount == null) {
+                throw new UnauthenticatedException();
+            } //jesli nie ma to nie autoryzujemy
             return Response.status(
                     Response.Status.OK
             ).entity(
@@ -59,6 +83,12 @@ public class UserResource extends AbstractResource{
                             userAccountRepository.editUser(body)
                     )
             ).build();
+        } catch (UnauthenticatedException ex) {
+            return Response.status(
+                    Response.Status.UNAUTHORIZED
+            ).entity(
+                    ErrorHandler.getErrorResponse(ex)
+            ).build();
         } catch (ValidationException ex) {
             return Response.status(
                     Response.Status.BAD_REQUEST
@@ -77,18 +107,34 @@ public class UserResource extends AbstractResource{
     //******************************************************************************************************************
     //@Authenticate
     @PUT
-    @Path(ApiEndpoints.USER_ID_LOGOUT)
-    public Response putUserLogout(LogOutUserRequest body) {
+    @Path(ApiEndpoints.USER_LOGOUT)
+    public Response putUserLogout(AuthenticationRequest body) {
         try {
-            UserAccountRepository userAccountRepository = new UserAccountRepository();
+            if (body == null) {
+                throw new ValidationException("No request data provided...");
+            }
+            UserAccountRepository userAccountRepository = new UserAccountRepository();//tworzymy obiekt usera i sprawdzenie czy taki email istnieje
+            UserAccount userAccount = userAccountRepository.findByEmail(body.getEmail());
+            if (userAccount == null) {
+                throw new UnauthenticatedException();
+            } //jesli nie ma to nie autoryzujemy
+            ApiTokenRepository apiTokenRepository = new ApiTokenRepository();
             return Response.status(
                     Response.Status.OK
             ).entity(
-                    User.logoutFromUserAccount(
-                            userAccountRepository.logoutUser(body)
+                    AuthenticationResponse.logoutFromApiToken(
+                            apiTokenRepository.generateApiToken(
+                                    userAccount
+                            )
                     )
             ).build();
-        } catch (ValidationException ex) {
+        } catch (UnauthenticatedException ex) {
+            return Response.status(
+                    Response.Status.UNAUTHORIZED
+            ).entity(
+                    ErrorHandler.getErrorResponse(ex)
+            ).build();
+        } catch (ApiException ex) {
             return Response.status(
                     Response.Status.BAD_REQUEST
             ).entity(

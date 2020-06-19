@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 

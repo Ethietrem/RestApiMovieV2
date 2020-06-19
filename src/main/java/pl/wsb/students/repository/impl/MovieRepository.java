@@ -48,13 +48,14 @@ public class MovieRepository extends AbstractRepository<Movie, Integer> {
         } //if
         movieRequest.validateData();
         Movie newMovie = findByName(movieRequest.getTitle());
-        if (newMovie == null) {
+        if (newMovie != null) {
             throw new ValidationException("Provided title not found...");
         } //if
         newMovie = new Movie();
         newMovie.setCreated(new Date());
         newMovie.setModified(new Date());
         newMovie.setTitle(movieRequest.getTitle());
+        newMovie.setReleaseYear(movieRequest.getYear());
         //newMovie.setDirector(new Director());
         //newMovie.setMovieGenre(new MovieGenre());
         EntityManagerHelper.startTransaction();
@@ -62,17 +63,4 @@ public class MovieRepository extends AbstractRepository<Movie, Integer> {
         EntityManagerHelper.commitTransaction();
         return newMovie;
     }
-
-    /*
-    //dodanie komentarza do filmu
-    public Movie addMovieComment(MovieCommentRequest movieComment) throws ValidationException {
-        if (movieComment == null) {
-            throw new ValidationException("movieComment");
-        } //if
-
-        EntityManagerHelper.startTransaction();
-        newMovie = merge(newMovie);
-        EntityManagerHelper.commitTransaction();
-        return newMovie;
-    }*/
 }

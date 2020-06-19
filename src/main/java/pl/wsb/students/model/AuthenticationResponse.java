@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -13,9 +13,11 @@
 
 package pl.wsb.students.model;
 
+import java.util.Date;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.time.DateUtils;
 import pl.wsb.students.exceptions.ApiException;
 import pl.wsb.students.hibernatemodel.ApiToken;
 
@@ -176,6 +178,21 @@ public class AuthenticationResponse   {
             .accessToken(token.getAccessToken())
             .emailAddress(token.getUserAccount().getEmail())
             .expiresIn(1800) // tu jest wklepany czas autoryzacji na stałe dla klucza - tokena usera
+            .userId(token.getUserAccount().getId());
+  }
+
+  public static AuthenticationResponse logoutFromApiToken(ApiToken token) throws
+          ApiException {
+    if (token == null) {
+      throw new ApiException("Token is null...");
+    }
+    if (token.getUserAccount() == null) {
+      throw new ApiException("Token user information data is null...");
+    }
+    return new AuthenticationResponse()
+            //.accessToken(token.getAccessToken())
+            .emailAddress(token.getUserAccount().getEmail())
+            .expiresIn(0)
             .userId(token.getUserAccount().getId());
   }
 }

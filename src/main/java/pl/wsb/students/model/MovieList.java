@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -28,7 +28,7 @@ public class MovieList   {
   private Integer total = null;
 
   @JsonProperty("data")
-  private List<Movie> data = new ArrayList<Movie>();
+  private List<MovieResponse> data = new ArrayList<MovieResponse>();
 
   public MovieList total(Integer total) {
     this.total = total;
@@ -36,11 +36,11 @@ public class MovieList   {
   }
 
   /**
-   * Movie list total items count
+   * MovieResponse list total items count
    * @return total
    **/
   @JsonProperty("total")
-  @ApiModelProperty(required = true, value = "Movie list total items count")
+  @ApiModelProperty(required = true, value = "MovieResponse list total items count")
   @NotNull
   public Integer getTotal() {
     return total;
@@ -50,12 +50,12 @@ public class MovieList   {
     this.total = total;
   }
 
-  public MovieList data(List<Movie> data) {
+  public MovieList data(List<MovieResponse> data) {
     this.data = data;
     return this;
   }
 
-  public MovieList addDataItem(Movie dataItem) {
+  public MovieList addDataItem(MovieResponse dataItem) {
     this.data.add(dataItem);
     return this;
   }
@@ -67,11 +67,11 @@ public class MovieList   {
   @JsonProperty("data")
   @ApiModelProperty(required = true, value = "One pagination page data")
   @NotNull
-  public List<Movie> getData() {
+  public List<MovieResponse> getData() {
     return data;
   }
 
-  public void setData(List<Movie> data) {
+  public void setData(List<MovieResponse> data) {
     this.data = data;
   }
 

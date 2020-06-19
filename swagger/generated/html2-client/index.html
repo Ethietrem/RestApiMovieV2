@@ -785,6 +785,19 @@ margin-bottom: 20px;
     "id" : 1
   }
 };
+        defs["LogoutUserRequest"] = {
+  "type" : "object",
+  "required" : [ "email" ],
+  "properties" : {
+    "email" : {
+      "type" : "string",
+      "description" : "User email address"
+    }
+  },
+  "example" : {
+    "email" : "uzytkownik@java-course-wsb.pl"
+  }
+};
         defs["Movie"] = {
   "type" : "object",
   "required" : [ "id", "title" ],
@@ -864,7 +877,6 @@ margin-bottom: 20px;
   },
   "example" : {
     "movie_id" : 1,
-    "title" : "Gwiezdne wojny: Część IV - Nowa nadzieja",
     "comment" : "sample comment"
   }
 };
@@ -6641,7 +6653,7 @@ except ApiException as e:
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/user/{id}/logout</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/user/logout</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -6661,7 +6673,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-putUserIdLogout-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api.wsb.pl/user/{id}/logout"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "http://api.wsb.pl/user/logout"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-putUserIdLogout-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -6677,9 +6689,9 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        Integer id = 56; // Integer | Logout user.
+        LogoutUserRequest body = ; // LogoutUserRequest | Logout user.
         try {
-            LogOutUserRequest result = apiInstance.putUserIdLogout(id);
+            LogOutUserRequest result = apiInstance.putUserIdLogout(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#putUserIdLogout");
@@ -6696,9 +6708,9 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        Integer id = 56; // Integer | Logout user.
+        LogoutUserRequest body = ; // LogoutUserRequest | Logout user.
         try {
-            LogOutUserRequest result = apiInstance.putUserIdLogout(id);
+            LogOutUserRequest result = apiInstance.putUserIdLogout(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#putUserIdLogout");
@@ -6712,12 +6724,12 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-putUserIdLogout-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Integer *id = 56; // Logout user.
+                              <pre class="prettyprint"><code class="language-cpp">LogoutUserRequest *body = ; // Logout user.
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // Logout user.
-[apiInstance putUserIdLogoutWith:id
+[apiInstance putUserIdLogoutWith:body
               completionHandler: ^(LogOutUserRequest output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -6734,7 +6746,7 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new JavaWsbCourseSampleMovieAppApi.DefaultApi()
 
-var id = 56; // {Integer} Logout user.
+var body = ; // {LogoutUserRequest} Logout user.
 
 
 var callback = function(error, data, response) {
@@ -6744,7 +6756,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.putUserIdLogout(id, callback);
+api.putUserIdLogout(body, callback);
 </code></pre>
                             </div>
 
@@ -6766,12 +6778,12 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var id = 56;  // Integer | Logout user.
+            var body = new LogoutUserRequest(); // LogoutUserRequest | Logout user.
 
             try
             {
                 // Logout user.
-                LogOutUserRequest result = apiInstance.putUserIdLogout(id);
+                LogOutUserRequest result = apiInstance.putUserIdLogout(body);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -6789,10 +6801,10 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\DefaultApi();
-$id = 56; // Integer | Logout user.
+$body = ; // LogoutUserRequest | Logout user.
 
 try {
-    $result = $api_instance->putUserIdLogout($id);
+    $result = $api_instance->putUserIdLogout($body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->putUserIdLogout: ', $e->getMessage(), PHP_EOL;
@@ -6806,10 +6818,10 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
-my $id = 56; # Integer | Logout user.
+my $body = WWW::SwaggerClient::Object::LogoutUserRequest->new(); # LogoutUserRequest | Logout user.
 
 eval { 
-    my $result = $api_instance->putUserIdLogout(id => $id);
+    my $result = $api_instance->putUserIdLogout(body => $body);
     print Dumper($result);
 };
 if ($@) {
@@ -6826,11 +6838,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
-id = 56 # Integer | Logout user.
+body =  # LogoutUserRequest | Logout user.
 
 try: 
     # Logout user.
-    api_response = api_instance.put_user_id_logout(id)
+    api_response = api_instance.put_user_id_logout(body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->putUserIdLogout: %s\n" % e)</code></pre>
@@ -6839,38 +6851,50 @@ except ApiException as e:
 
                           <h2>Parameters</h2>
 
-                            <div class="methodsubtabletitle">Path parameters</div>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
                             <table id="methodsubtable">
-                                <tr>
-                                  <th width="150px">Name</th>
-                                  <th>Description</th>
-                                </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
 <td>
 
 
-    <div id="d2e199_putUserIdLogout_id">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    Integer
-                </span>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "body",
+  "description" : "Logout user.",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/LogoutUserRequest"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
 
-                    <div class="inner description">
-                        Logout user.
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_putUserIdLogout_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_putUserIdLogout_body"></div>
 </td>
 </tr>
 
                             </table>
-
-
 
 
 

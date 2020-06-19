@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -18,22 +18,23 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
 import pl.wsb.students.exceptions.ApiException;
-import pl.wsb.students.hibernatemodel.UserAccount;
+import pl.wsb.students.hibernatemodel.Movie;
+import pl.wsb.students.hibernatemodel.MovieComment;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.*;
 
 /**
- * Movie
+ * MovieResponse
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2020-05-28T14:20:49.404Z")
-public class Movie   {
+public class MovieResponse {
   @JsonProperty("id")
   private Integer id = null;
 
   /**
-   * Movie genre
+   * MovieResponse genre
    */
   public enum GenreEnum {
     ACTION("Action"),
@@ -90,17 +91,17 @@ public class Movie   {
   @JsonProperty("comment")
   private String comment = null;
 
-  public Movie id(Integer id) {
+  public MovieResponse id(Integer id) {
     this.id = id;
     return this;
   }
 
   /**
-   * Movie id
+   * MovieResponse id
    * @return id
    **/
   @JsonProperty("id")
-  @ApiModelProperty(required = true, value = "Movie id")
+  @ApiModelProperty(required = true, value = "MovieResponse id")
   @NotNull
   public Integer getId() {
     return id;
@@ -110,17 +111,17 @@ public class Movie   {
     this.id = id;
   }
 
-  public Movie genre(GenreEnum genre) {
+  public MovieResponse genre(GenreEnum genre) {
     this.genre = genre;
     return this;
   }
 
   /**
-   * Movie genre
+   * MovieResponse genre
    * @return genre
    **/
   @JsonProperty("genre")
-  @ApiModelProperty(value = "Movie genre")
+  @ApiModelProperty(value = "MovieResponse genre")
   public GenreEnum getGenre() {
     return genre;
   }
@@ -129,17 +130,17 @@ public class Movie   {
     this.genre = genre;
   }
 
-  public Movie title(String title) {
+  public MovieResponse title(String title) {
     this.title = title;
     return this;
   }
 
   /**
-   * Movie title
+   * MovieResponse title
    * @return title
    **/
   @JsonProperty("title")
-  @ApiModelProperty(required = true, value = "Movie title")
+  @ApiModelProperty(required = true, value = "MovieResponse title")
   @NotNull
   public String getTitle() {
     return title;
@@ -149,17 +150,17 @@ public class Movie   {
     this.title = title;
   }
 
-  public Movie rating(Integer rating) {
+  public MovieResponse rating(Integer rating) {
     this.rating = rating;
     return this;
   }
 
   /**
-   * Movie rating
+   * MovieResponse rating
    * @return rating
    **/
   @JsonProperty("rating")
-  @ApiModelProperty(value = "Movie rating")
+  @ApiModelProperty(value = "MovieResponse rating")
   public Integer getRating() {
     return rating;
   }
@@ -168,17 +169,17 @@ public class Movie   {
     this.rating = rating;
   }
 
-  public Movie year(String year) {
+  public MovieResponse year(String year) {
     this.year = year;
     return this;
   }
 
   /**
-   * Movie release year
+   * MovieResponse release year
    * @return year
    **/
   @JsonProperty("year")
-  @ApiModelProperty(value = "Movie release year")
+  @ApiModelProperty(value = "MovieResponse release year")
   public String getYear() {
     return year;
   }
@@ -187,17 +188,17 @@ public class Movie   {
     this.year = year;
   }
 
-  public Movie director(String director) {
+  public MovieResponse director(String director) {
     this.director = director;
     return this;
   }
 
   /**
-   * Movie director
+   * MovieResponse director
    * @return director
    **/
   @JsonProperty("director")
-  @ApiModelProperty(value = "Movie director")
+  @ApiModelProperty(value = "MovieResponse director")
   public String getDirector() {
     return director;
   }
@@ -206,12 +207,12 @@ public class Movie   {
     this.director = director;
   }
 
-  public Movie actors(List<Actor> actors) {
+  public MovieResponse actors(List<Actor> actors) {
     this.actors = actors;
     return this;
   }
 
-  public Movie addActorsItem(Actor actorsItem) {
+  public MovieResponse addActorsItem(Actor actorsItem) {
     if (this.actors == null) {
       this.actors = new ArrayList<Actor>();
     }
@@ -233,17 +234,17 @@ public class Movie   {
     this.actors = actors;
   }
 
-  public Movie comment(String comment) {
+  public MovieResponse comment(String comment) {
     this.comment = comment;
     return this;
   }
 
   /**
-   * Movie coomment
+   * MovieResponse coomment
    * @return comment
    **/
   @JsonProperty("comment")
-  @ApiModelProperty(value = "Movie coomment")
+  @ApiModelProperty(value = "MovieResponse coomment")
   public String getComment() {
     return comment;
   }
@@ -261,7 +262,7 @@ public class Movie   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Movie movie = (Movie) o;
+    MovieResponse movie = (MovieResponse) o;
     return Objects.equals(this.id, movie.id) &&
             Objects.equals(this.genre, movie.genre) &&
             Objects.equals(this.title, movie.title) &&
@@ -281,7 +282,7 @@ public class Movie   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Movie {\n");
+    sb.append("class MovieResponse {\n");
 
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    genre: ").append(toIndentedString(genre)).append("\n");
@@ -306,10 +307,17 @@ public class Movie   {
     return o.toString().replace("\n", "\n    ");
   }
 
-  public static Movie createMovie(Movie createMovie) throws ApiException {
+  public static MovieResponse createMovie(Movie createMovie) throws ApiException {
     if (createMovie == null){
-      throw new ApiException("Movie is null ...");
+      throw new ApiException("MovieResponse is null ...");
     }
-    return new Movie().title(createMovie.getTitle()).id(createMovie.getId());
+    return new MovieResponse().title(createMovie.getTitle()).year(createMovie.getReleaseYear()).id(createMovie.getId());
+  }
+
+  public static MovieResponse createComment(MovieComment createComment) throws ApiException {
+    if (createComment == null){
+      throw new ApiException("CommentResponse is null ...");
+    }
+    return new MovieResponse().comment(createComment.getComments());
   }
 }

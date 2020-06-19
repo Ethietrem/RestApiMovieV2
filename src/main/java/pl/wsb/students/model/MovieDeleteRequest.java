@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -31,11 +31,11 @@ public class MovieDeleteRequest   {
   }
 
   /**
-   * Movie by id to delete
+   * MovieResponse by id to delete
    * @return movieId
    **/
   @JsonProperty("movie_id")
-  @ApiModelProperty(required = true, value = "Movie by id to delete")
+  @ApiModelProperty(required = true, value = "MovieResponse by id to delete")
   @NotNull
   public Integer getMovieId() {
     return movieId;

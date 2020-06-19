@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -31,7 +31,7 @@ public class MovieRequest   {
   private Integer movieId = null;
 
   /**
-   * Movie genre
+   * MovieResponse genre
    */
   public enum GenreEnum {
     ACTION("Action"),
@@ -85,11 +85,11 @@ public class MovieRequest   {
   }
 
   /**
-   * Movie to rate id
+   * MovieResponse to rate id
    * @return movieId
    **/
   @JsonProperty("movie_id")
-  @ApiModelProperty(required = true, value = "Movie to rate id")
+  @ApiModelProperty(required = true, value = "MovieResponse to rate id")
   @NotNull
   public Integer getMovieId() {
     return movieId;
@@ -105,11 +105,11 @@ public class MovieRequest   {
   }
 
   /**
-   * Movie genre
+   * MovieResponse genre
    * @return genre
    **/
   @JsonProperty("genre")
-  @ApiModelProperty(required = true, value = "Movie genre")
+  @ApiModelProperty(required = true, value = "MovieResponse genre")
   @NotNull
   public GenreEnum getGenre() {
     return genre;
@@ -125,11 +125,11 @@ public class MovieRequest   {
   }
 
   /**
-   * Movie title
+   * MovieResponse title
    * @return title
    **/
   @JsonProperty("title")
-  @ApiModelProperty(required = true, value = "Movie title")
+  @ApiModelProperty(required = true, value = "MovieResponse title")
   @NotNull
   public String getTitle() {
     return title;
@@ -145,11 +145,11 @@ public class MovieRequest   {
   }
 
   /**
-   * Movie release year
+   * MovieResponse release year
    * @return year
    **/
   @JsonProperty("year")
-  @ApiModelProperty(required = true, value = "Movie release year")
+  @ApiModelProperty(required = true, value = "MovieResponse release year")
   @NotNull
   public String getYear() {
     return year;
@@ -165,11 +165,11 @@ public class MovieRequest   {
   }
 
   /**
-   * Movie director
+   * MovieResponse director
    * @return director
    **/
   @JsonProperty("director")
-  @ApiModelProperty(required = true, value = "Movie director")
+  @ApiModelProperty(required = true, value = "MovieResponse director")
   @NotNull
   public String getDirector() {
     return director;

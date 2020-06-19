@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -25,7 +25,7 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2020-05-28T14:20:49.404Z")
 public class MovieEditRequest   {
   /**
-   * Movie genre
+   * MovieResponse genre
    */
   public enum GenreEnum {
     ACTION("Action"),
@@ -79,11 +79,11 @@ public class MovieEditRequest   {
   }
 
   /**
-   * Movie genre
+   * MovieResponse genre
    * @return genre
    **/
   @JsonProperty("genre")
-  @ApiModelProperty(required = true, value = "Movie genre")
+  @ApiModelProperty(required = true, value = "MovieResponse genre")
   @NotNull
   public GenreEnum getGenre() {
     return genre;
@@ -99,11 +99,11 @@ public class MovieEditRequest   {
   }
 
   /**
-   * Movie title
+   * MovieResponse title
    * @return title
    **/
   @JsonProperty("title")
-  @ApiModelProperty(required = true, value = "Movie title")
+  @ApiModelProperty(required = true, value = "MovieResponse title")
   @NotNull
   public String getTitle() {
     return title;
@@ -119,11 +119,11 @@ public class MovieEditRequest   {
   }
 
   /**
-   * Movie release year
+   * MovieResponse release year
    * @return year
    **/
   @JsonProperty("year")
-  @ApiModelProperty(required = true, value = "Movie release year")
+  @ApiModelProperty(required = true, value = "MovieResponse release year")
   @NotNull
   public String getYear() {
     return year;
@@ -139,11 +139,11 @@ public class MovieEditRequest   {
   }
 
   /**
-   * Movie director
+   * MovieResponse director
    * @return director
    **/
   @JsonProperty("director")
-  @ApiModelProperty(required = true, value = "Movie director")
+  @ApiModelProperty(required = true, value = "MovieResponse director")
   @NotNull
   public String getDirector() {
     return director;

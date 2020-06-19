@@ -39,6 +39,10 @@ public class MovieAppSecurityContext implements SecurityContext {
     //wprowadzona własna nazwa uwierzytelnienia
     @Override
     public String getAuthenticationScheme() {
-        return "Movie-App-Auth-Scheme";
+        return "MovieResponse-App-Auth-Scheme";
+    }
+
+    public UserAccount getUser() {
+        return user;
     }
 }

@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -67,11 +67,11 @@ public class MovieLibraryRequest   {
   }
 
   /**
-   * Movie to rate id
+   * MovieResponse to rate id
    * @return movieId
    **/
   @JsonProperty("movie_id")
-  @ApiModelProperty(required = true, value = "Movie to rate id")
+  @ApiModelProperty(required = true, value = "MovieResponse to rate id")
   @NotNull
   public Integer getMovieId() {
     return movieId;

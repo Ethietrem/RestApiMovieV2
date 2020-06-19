@@ -43,7 +43,7 @@ public class AuthenticateFilter implements ContainerRequestFilter {
     //sprawdzany jest tu autoryzacja konta
     @Override
     public void filter(ContainerRequestContext requestContext) {
-        final String AUTH_HEADER_BEARER = "Bearer: ";
+        final String AUTH_HEADER_BEARER = "B:";
         try {
             String authorizationHeader =
                     requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);

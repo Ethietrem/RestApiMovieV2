@@ -86,7 +86,10 @@ public class UserAccountRepository extends AbstractRepository<UserAccount, Integ
         editUser.validateData();
         UserAccount userAccount = new UserAccount();
         userAccount.setModified(new Date());
+        userAccount.getPassHash();
+        userAccount.getPassSalt();
         userAccount.setEmail(editUser.getEmail());
+        userAccount.setDeleted(1);
         EntityManagerHelper.startTransaction();
         userAccount = merge(userAccount);
         EntityManagerHelper.commitTransaction();
@@ -99,8 +102,13 @@ public class UserAccountRepository extends AbstractRepository<UserAccount, Integ
         if (logoutUser == null) {
             throw new ValidationException("logoutRequest");
         } //if
+        logoutUser.validateData();
         UserAccount userAccount = null;
-        //???????
+        userAccount.setModified(new Date());
+        userAccount.getPassHash();
+        userAccount.getPassSalt();
+
+
         return userAccount;
     }
 }

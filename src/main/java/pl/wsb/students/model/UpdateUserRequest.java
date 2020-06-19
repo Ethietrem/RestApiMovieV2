@@ -1,6 +1,6 @@
 /*
- * Java WSB Course Sample Movie App API
- * Sample Movie App API
+ * Java WSB Course Sample MovieResponse App API
+ * Sample MovieResponse App API
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -64,7 +64,7 @@ public class UpdateUserRequest   {
    * @return email
    **/
   @JsonProperty("email")
-  @ApiModelProperty(required = true, value = "User email address")
+  @ApiModelProperty(required = false, value = "User email address")
   @NotNull
   public String getEmail() {
     return email;
@@ -84,7 +84,7 @@ public class UpdateUserRequest   {
    * @return password
    **/
   @JsonProperty("password")
-  @ApiModelProperty(required = true, value = "User password")
+  @ApiModelProperty(required = false, value = "User password")
   @NotNull
   public String getPassword() {
     return password;
@@ -145,8 +145,8 @@ public class UpdateUserRequest   {
   oraz rzuca odpowiednim wyjątkiem w razie potrzeby
    */
   public void validateData() throws ValidationException {
-    if (StringUtils.isBlank(this.email)) {
+    /*if (StringUtils.isBlank(this.email)) {
       throw new ValidationException("Please provide email address...");
-    }
+    }*/
   }
 }

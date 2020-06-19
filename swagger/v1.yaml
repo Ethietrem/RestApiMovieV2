@@ -41,6 +41,17 @@ definitions:
       email: 'uzytkownik@java-course-wsb.pl'
       password: 'password'
 
+  LogoutUserRequest:
+    type: object
+    properties:
+      email:
+        type: string
+        description: User email address
+    required:
+      - email
+    example:
+      email: 'uzytkownik@java-course-wsb.pl'
+
   # <!-- ###################UpdateUserRequest############################# -->
   UpdateUserRequest:
     type: object
@@ -285,7 +296,6 @@ definitions:
       - comment
     example:
       movie_id: 1
-      title: 'Gwiezdne wojny: Część IV - Nowa nadzieja'
       comment: 'sample comment'
   # <!-- ###################MovieCommentRequest############################# -->
 
@@ -495,8 +505,8 @@ paths:
             $ref: '#/definitions/Error'
   # <!-- #######################/user/{_id}######################### -->
 
-  # <!-- #######################/user/{_id}/logout######################### -->
-  /user/{id}/logout:
+  # <!-- #######################/user/logout######################### -->
+  /user/logout:
     put:
       summary: Logout user.
       operationId: putUserIdLogout
@@ -506,10 +516,11 @@ paths:
         - application/json
       parameters:
         - description: Logout user.
-          in: path
-          name: id
+          in: body
+          name: body
           required: true
-          type: integer
+          schema:
+            $ref: '#/definitions/LogoutUserRequest'
       responses:
         200:
           description: 200 Success
@@ -674,7 +685,7 @@ paths:
           description: 500 Server error, e.g. unexpeected application exception
           schema:
             $ref: '#/definitions/Error'
-   # <!-- ######################/movie/put########################## -->
+    # <!-- ######################/movie/put########################## -->
 
   /movie/rate:
     post:
